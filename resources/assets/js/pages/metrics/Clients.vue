@@ -1,8 +1,14 @@
 <template>
 
-    <div class="small">
-        <line-chart :chart-data="datacollection" :options="options" :height="200"></line-chart>
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>Clients</span>
+        </div>
+        <div class="small">
+            <line-chart :chart-data="collection" :options="options" :height="200"></line-chart>
+        </div>
+
+     </el-card>
 
 </template>
 
@@ -19,12 +25,13 @@
 
         data() {
             return {
-                datacollection: null,
+                collection: null,
+                length: 20,
                 options: {
                     responsive: true,
                     title:{
                         display:true,
-                        text:'CPU'
+                        text:'Clients'
                     },
                     tooltips: {
                         mode: 'index',
@@ -57,7 +64,13 @@
         mounted () {
             this.fillData();
 
-            this.refreshPeriodically()
+            this.refreshPeriodically();
+
+            Bus.$on("connectionChanged", data => {
+            
+                this.collection = null;
+                this.fillData();
+            });
         },
 
         methods: {
@@ -77,14 +90,14 @@
 
                 this.$redis.info('clients').then(response => {
 
-                    if (!this.datacollection) {
+                    if (!this.collection) {
 
                         let data = {
                             labels: [],
                             datasets: [],
                         };
 
-                        if (data.labels.length < 10) {
+                        if (data.labels.length < this.length) {
                             data.labels.push(this.time())
                         }
 
@@ -93,18 +106,18 @@
                             fill: false,
                             backgroundColor: 'rgb(255, 99, 132)',
                             borderColor: 'rgb(255, 99, 132)',
-                            data: [response.data.Clients.connected_clients],
+                            data: [response.data.connected_clients],
                         }, {
                             label: "blocked_clients",
                             fill: false,
                             backgroundColor: 'rgb(54, 162, 235)',
                             borderColor: 'rgb(54, 162, 235)',
-                            data: [response.data.Clients.blocked_clients],
+                            data: [response.data.blocked_clients],
                         }];
 
-                        this.datacollection = data
+                        this.collection = data
                     } else {
-                        this.datacollection = this.newData(response.data)
+                        this.collection = this.newData(response.data)
                     }
 
                 });
@@ -114,16 +127,16 @@
             newData(response) {
 
                 let data = {
-                    labels: this.datacollection.labels,
-                    datasets: this.datacollection.datasets
+                    labels: this.collection.labels,
+                    datasets: this.collection.datasets
                 };
 
                 data.labels.push(this.time());
 
-                data.datasets[0].data.push(response.Clients.connected_clients);
-                data.datasets[1].data.push(response.Clients.blocked_clients);
+                data.datasets[0].data.push(response.connected_clients);
+                data.datasets[1].data.push(response.blocked_clients);
 
-                if (data.labels.length > 10) {
+                if (data.labels.length > this.length) {
                     data.labels.shift();
                     data.datasets[0].data.shift();
                     data.datasets[1].data.shift();
@@ -135,6 +148,8 @@
 
         beforeDestroy() {
             clearInterval(this.interval);
+            
+            Bus.$off("connectionChanged");
         },
     }
 

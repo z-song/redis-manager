@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="success" v-else>
-                    <el-tag type="danger">{{ result.command }}</el-tag>
+                    <el-tag type="primary">{{ result.command }}</el-tag>
                     <pre> {{ result.data | pretty }} </pre>
                     <i class="el-alert__closebtn el-icon-close" @click="clear(key)"></i>
                 </div>

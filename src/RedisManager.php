@@ -8,6 +8,7 @@ use Encore\RedisManager\DataType\Lists;
 use Encore\RedisManager\DataType\Sets;
 use Encore\RedisManager\DataType\SortedSets;
 use Encore\RedisManager\DataType\Strings;
+use Encore\RedisManager\Formatter\Information;
 use Illuminate\Http\Request;
 use Illuminate\Redis\Connections\Connection;
 use Illuminate\Support\Collection;
@@ -43,6 +44,13 @@ class RedisManager
     protected $connection;
 
     /**
+     * The callback that should be used to authenticate redis-manager users.
+     *
+     * @var \Closure
+     */
+    public static $authUsing;
+
+    /**
      * Get instance of redis manager.
      *
      * @param string $connection
@@ -66,6 +74,34 @@ class RedisManager
     public function __construct($connection = 'default')
     {
         $this->connection = $connection;
+    }
+
+    /**
+     * Determine if the given request can access redis-manager.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public static function check($request)
+    {
+        if (static::$authUsing) {
+            (static::$authUsing)($request);
+        }
+
+        return true;
+    }
+
+    /**
+     * Set the callback that should be used to authenticate redis-manager users.
+     *
+     * @param  \Closure  $callback
+     * @return static
+     */
+    public static function auth(\Closure $callback)
+    {
+        static::$authUsing = $callback;
+
+        return new static;
     }
 
     /**
@@ -145,7 +181,9 @@ class RedisManager
     public function getInformation($section = null)
     {
         if ($section) {
-            return $this->getConnection()->info($section);
+            $info = $this->getConnection()->info($section);
+
+            return Information::$section($info);
         }
 
         return $this->getConnection()->info();
@@ -255,10 +293,15 @@ LUA;
      *
      * @param string $command
      * @return mixed
+     * @throws \Exception
      */
     public function execute($command, $db)
     {
-        $command = explode(' ', $command);
+        $command = explode(' ', trim($command));
+
+        if ($this->commandDisabled($command[0])) {
+            throw new \Exception( "Command [{$command[0]}] is disabled!");
+        }
 
         $client = $this->getConnection();
 
@@ -267,6 +310,21 @@ LUA;
         }
 
         return $client->executeRaw($command);
+    }
+
+    /**
+     * Determine if giving command is disabled.
+     *
+     * @param string $command
+     * @return bool
+     */
+    protected function commandDisabled(string $command)
+    {
+        $disabled = config('redis-manager.disable_commands');
+
+        $disabled = array_map('strtoupper', (array) $disabled);
+
+        return in_array(strtoupper($command), $disabled);
     }
 
     /**

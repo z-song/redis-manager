@@ -1,8 +1,14 @@
 <template>
 
-    <div class="small">
-        <line-chart :chart-data="datacollection" :options="options" :height="200"></line-chart>
-    </div>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span>memory</span>
+        </div>
+        
+        <div class="small">
+            <line-chart :chart-data="collection" :options="options" :height="200"></line-chart>
+        </div>
+    </el-card>
 
 </template>
 
@@ -19,7 +25,8 @@ export default {
 
     data() {
         return {
-            datacollection: null,
+            collection: null,
+            length: 20,
             options: {
                 responsive: true,
                 title:{
@@ -46,7 +53,7 @@ export default {
                         display: true,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: 'MB'
                         }
                     }]
                 }
@@ -57,7 +64,13 @@ export default {
     mounted () {
         this.fillData();
 
-        this.refreshPeriodically()
+        this.refreshPeriodically();
+
+        Bus.$on("connectionChanged", data => {
+            
+            this.collection = null;
+            this.fillData();
+        });
     },
 
     methods: {
@@ -77,14 +90,14 @@ export default {
 
             this.$redis.info('memory').then(response => {
 
-                if (!this.datacollection) {
+                if (!this.collection) {
 
                     let data = {
                         labels: [],
                         datasets: [],
                     };
 
-                    if (data.labels.length < 10) {
+                    if (data.labels.length < this.length) {
                         data.labels.push(this.time())
                     }
 
@@ -93,24 +106,24 @@ export default {
                         fill: false,
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
-                        data: [response.data.Memory.used_memory],
+                        data: [response.data.used_memory],
                     }, {
                         label: "used_memory_rss",
                         fill: false,
                         backgroundColor: 'rgb(54, 162, 235)',
                         borderColor: 'rgb(54, 162, 235)',
-                        data: [response.data.Memory.used_memory_rss],
+                        data: [response.data.used_memory_rss],
                     }, {
                         label: "used_memory_peak",
                         fill: false,
                         backgroundColor: 'rgb(255, 205, 86)',
                         borderColor: 'rgb(255, 205, 86)',
-                        data: [response.data.Memory.used_memory_peak],
+                        data: [response.data.used_memory_peak],
                     }];
 
-                    this.datacollection = data
+                    this.collection = data
                 } else {
-                    this.datacollection = this.newData(response.data)
+                    this.collection = this.newData(response.data)
                 }
 
             });
@@ -120,16 +133,16 @@ export default {
         newData(response) {
 
             let data = {
-                labels: this.datacollection.labels,
-                datasets: this.datacollection.datasets
+                labels: this.collection.labels,
+                datasets: this.collection.datasets
             };
 
             data.labels.push(this.time());
-            data.datasets[0].data.push(response.Memory.used_memory);
-            data.datasets[1].data.push(response.Memory.used_memory_rss);
-            data.datasets[2].data.push(response.Memory.used_memory_peak);
+            data.datasets[0].data.push(response.used_memory);
+            data.datasets[1].data.push(response.used_memory_rss);
+            data.datasets[2].data.push(response.used_memory_peak);
 
-            if (data.labels.length > 10) {
+            if (data.labels.length > this.length) {
                 data.labels.shift();
                 data.datasets[0].data.shift();
                 data.datasets[1].data.shift();
@@ -142,6 +155,8 @@ export default {
 
     beforeDestroy() {
         clearInterval(this.interval);
+
+        Bus.$off("connectionChanged");
     },
 }
 

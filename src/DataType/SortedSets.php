@@ -9,9 +9,12 @@ class SortedSets extends DataType
      */
     public function fetch(string $key)
     {
-        return $this->getConnection()->zrange($key,0, -1, ['WITHSCORES' => true]);
+        return $this->getConnection()->zrange($key, 0, -1, ['WITHSCORES' => true]);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function update(array $params)
     {
         $key      = array_get($params, 'key');

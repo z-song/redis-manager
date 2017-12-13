@@ -1,7 +1,8 @@
 <?php
 
-namespace Encore\RedisManager\Http;
+namespace Encore\RedisManager\Http\Controllers;
 
+use Encore\RedisManager\Http\Middleware\Authenticate;
 use Encore\RedisManager\RedisManager;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
@@ -10,6 +11,16 @@ use Illuminate\Support\Str;
 
 class RedisController extends BaseController
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware(Authenticate::class);
+    }
+
     /**
      * Index page
      *

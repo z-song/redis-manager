@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Routing\Router;
 
-Route::group(['prefix' => 'api'], function (\Illuminate\Routing\Router $router) {
+Route::group(['prefix' => 'api'], function (Router $router) {
 
     $router->get('/connections', 'RedisController@connections');
     $router->get('/scan', 'RedisController@scan');

@@ -1,13 +1,6 @@
 <template>
     <layout>
-        <el-card class="box-card">
-            <div slot="header" class="clearfix">
-                <span>Memnory</span>
-            </div>
-            <router-view/>
-        </el-card>
-
-
+        <router-view/>
     </layout>
 </template>
 

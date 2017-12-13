@@ -16,11 +16,11 @@ export default new Router({
       component: require('./pages/create/Index.vue'),
       children: [
         { path: '/', redirect: 'string' },
-        { path: 'string', component: require('./pages/create/String.vue')},
-        { path: 'hash', component: require('./pages/create/Hash.vue')},
-        { path: 'list', component: require('./pages/create/List.vue')},
-        { path: 'set', component: require('./pages/create/Set.vue')},
-        { path: 'zset', component: require('./pages/create/Zset.vue')},
+        { path: 'string', component: require('./pages/create/String.vue') },
+        { path: 'hash', component: require('./pages/create/Hash.vue') },
+        { path: 'list', component: require('./pages/create/List.vue') },
+        { path: 'set', component: require('./pages/create/Set.vue') },
+        { path: 'zset', component: require('./pages/create/Zset.vue') },
       ],
     },
     {
@@ -28,11 +28,11 @@ export default new Router({
       component: require('./pages/edit/Index.vue'),
       children: [
         { path: '/', redirect: 'string' },
-        { path: 'string', component: require('./pages/edit/String.vue')},
-        { path: 'hash', component: require('./pages/edit/Hash.vue')},
-        { path: 'list', component: require('./pages/edit/List.vue')},
-        { path: 'set', component: require('./pages/edit/Set.vue')},
-        { path: 'zset', component: require('./pages/edit/Zset.vue')},
+        { path: 'string', component: require('./pages/edit/String.vue') },
+        { path: 'hash', component: require('./pages/edit/Hash.vue') },
+        { path: 'list', component: require('./pages/edit/List.vue') },
+        { path: 'set', component: require('./pages/edit/Set.vue') },
+        { path: 'zset', component: require('./pages/edit/Zset.vue') },
       ],
     },
     {
@@ -44,24 +44,28 @@ export default new Router({
       component: require('./pages/Console.vue'),
     },
 
-      {
-          path: '/metrics',
-          component: require('./pages/metrics/Index.vue'),
-          children : [{
-              path: '/',
-              redirect: 'memory',
-          },{
-              path: 'memory',
-              component: require('./pages/metrics/Memory.vue'),
-          },
-              {
-                  path: 'cpu',
-                  component: require('./pages/metrics/CPU.vue'),
-              },
-              {
-                  path: 'clients',
-                  component: require('./pages/metrics/Clients.vue'),
-              },],
+    {
+      path: '/metrics',
+      component: require('./pages/metrics/Index.vue'),
+      children: [{
+        path: '/',
+        redirect: 'memory',
+      }, {
+        path: 'memory',
+        component: require('./pages/metrics/Memory.vue'),
       },
+      {
+        path: 'cpu',
+        component: require('./pages/metrics/Cpu.vue'),
+      },
+      {
+        path: 'clients',
+        component: require('./pages/metrics/Clients.vue'),
+      },
+      {
+        path: 'throughput',
+        component: require('./pages/metrics/Throughput.vue'),
+      },],
+    },
   ],
 });

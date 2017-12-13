@@ -24,6 +24,7 @@
             <el-menu-item index="/metrics/memory"><i class="fa fa-save"></i>Memory</el-menu-item>
             <el-menu-item index="/metrics/cpu"><i class="fa fa-database"></i>CPU</el-menu-item>
             <el-menu-item index="/metrics/clients"><i class="fa fa-sitemap"></i>Clients</el-menu-item>
+            <el-menu-item index="/metrics/throughput"><i class="fa fa-sitemap"></i>Throughput</el-menu-item>
         </el-submenu>
 
     </el-menu>

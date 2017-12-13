@@ -14,7 +14,6 @@ const mix = require('laravel-mix');
 
 mix
     .options({
-        processCssUrls: false,
         uglify: {
             compress: {
                 drop_console: false,
@@ -24,11 +23,10 @@ mix
     .setPublicPath('public')
     .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    .copy('resources/assets/img', 'public/img')
+    // .copy('resources/assets/img', 'public/img')
     .sourceMaps()
     .version()
-    // .copy('public/fonts', '../../../public/fonts')
-    .copy('node_modules/font-awesome/fonts', 'public/fonts')
+    .copy('public/fonts', '../../../public/fonts')
     .copy('public', '../../../public/vendor/redis-manager');
 
 

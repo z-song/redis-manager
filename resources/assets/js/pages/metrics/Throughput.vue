@@ -1,144 +1,89 @@
 <template>
+    <el-card class="box-card">
+        <div slot="header" class="clearfix">
+            <span> Throughput </span>
+        </div>
 
-    <div class="small">
-        <line-chart :chart-data="datacollection" :options="options" :height="200"></line-chart>
-    </div>
+        <table>
+            <thead>
+                <tr>
+                    <td class="text">Command</td>
+                    <td class="text">calls</td>
+                    <td class="text">usec</td>
+                    <td class="text">usec_per_call</td>
+                </tr>
+            </thead>
 
+            <tbody>
+                <tr v-for="(info, command) in commands" :key="command">
+                    <td class="text"><el-tag>{{ command }}</el-tag></td>
+                    <td><code>{{ info.calls }}</code></td>
+                    <td><code>{{ info.usec }}</code></td>
+                    <td><code>{{ info.usec_per_call }}</code></td>
+                </tr>
+            </tbody>
+        </table>
+    </el-card>
 </template>
+<style>
+code {
+  color: #5e6d82;
+  background-color: #e6effb;
+  margin: 0 4px;
+  display: inline-block;
+  padding: 1px 5px;
+  font-size: 12px;
+  border-radius: 3px;
+  height: 18px;
+  line-height: 18px;
+}
 
+table {
+  width: 100%;
+}
+
+td.text {
+  font-family: monospace;
+}
+
+table td {
+  border-bottom: 1px solid #e6ebf5;
+  padding: 5px 0;
+  min-width: 0;
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  position: relative;
+  border-collapse: separate;
+}
+</style>
 <script>
 
-    import Vue from 'vue';
-    import LineChart from '../../components/Charts/LineChart.js'
+export default {
+  data() {
+    return {
+      commands: {}
+    };
+  },
 
-    export default {
+  mounted() {
+    this.fetchInfo();
 
-        components: {
-            LineChart
-        },
+    Bus.$on("connectionChanged", data => {
+      this.fetchInfo();
+    });
+  },
 
-        data() {
-            return {
-                datacollection: null,
-                options: {
-                    responsive: true,
-                    title:{
-                        display:true,
-                        text:'Throughput'
-                    },
-                    tooltips: {
-                        mode: 'index',
-                        intersect: false,
-                    },
-                    hover: {
-                        mode: 'nearest',
-                        intersect: true
-                    },
-                    scales: {
-                        xAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Time'
-                            }
-                        }],
-                        yAxes: [{
-                            display: true,
-                            scaleLabel: {
-                                display: true,
-                                labelString: 'Calls'
-                            }
-                        }]
-                    }
-                },
-            }
-        },
+  beforeDestroy() {
+    Bus.$off("connectionChanged");
+  },
 
-        mounted () {
-            this.fillData();
-
-            this.refreshPeriodically()
-        },
-
-        methods: {
-            refreshPeriodically() {
-                this.interval = setInterval(() => {
-                    this.fillData();
-                }, 3000);
-            },
-
-            time () {
-                const d = new Date();
-
-                return d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
-            },
-
-            fillData () {
-
-                this.$redis.info('commandstats').then(response => {
-
-                    if (!this.datacollection) {
-
-                        let data = {
-                            labels: [],
-                            datasets: [],
-                        };
-
-                        if (data.labels.length < 10) {
-                            data.labels.push(this.time())
-                        }
-
-                        data.datasets = [{
-                            label: "used_cpu_user",
-                            fill: false,
-                            backgroundColor: 'rgb(255, 99, 132)',
-                            borderColor: 'rgb(255, 99, 132)',
-                            data: [response.data.CPU.used_cpu_user],
-                        }, {
-                            label: "used_cpu_sys",
-                            fill: false,
-                            backgroundColor: 'rgb(54, 162, 235)',
-                            borderColor: 'rgb(54, 162, 235)',
-                            data: [response.data.CPU.used_cpu_sys],
-                        }];
-
-                        this.datacollection = data
-                    } else {
-                        this.datacollection = this.newData(response.data)
-                    }
-
-                });
-
-            },
-
-            newData(response) {
-
-                let data = {
-                    labels: this.datacollection.labels,
-                    datasets: this.datacollection.datasets
-                };
-
-                data.labels.push(this.time());
-
-                data.datasets[0].data.push(response.CPU.used_cpu_user);
-                data.datasets[1].data.push(response.CPU.used_cpu_sys);
-
-                if (data.labels.length > 10) {
-                    data.labels.shift();
-                    data.datasets[0].data.shift();
-                    data.datasets[1].data.shift();
-                }
-
-                return data;
-            }
-        }
+  methods: {
+    fetchInfo() {
+        this.$redis.info('commandstats').then(response => {
+          this.commands = response.data;
+        });
     }
-
+  }
+};
 </script>
-
-<style>
-    .small {
-        width: 100%;
-        margin:  10px auto;
-    }
-</style>
