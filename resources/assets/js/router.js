@@ -7,10 +7,7 @@ export default new Router({
   mode: 'history',
   base: '/redis-manager/',
   routes: [
-    {
-      path: '/',
-      component: require('./pages/Keys.vue'),
-    },
+    { path: '/', component: require('./pages/Keys.vue'), },
     {
       path: '/create',
       component: require('./pages/create/Index.vue'),
@@ -35,37 +32,17 @@ export default new Router({
         { path: 'zset', component: require('./pages/edit/Zset.vue') },
       ],
     },
-    {
-      path: '/info',
-      component: require('./pages/Info.vue'),
-    },
-    {
-      path: '/console',
-      component: require('./pages/Console.vue'),
-    },
-
+    { path: '/info', component: require('./pages/Info.vue'), },
+    { path: '/console', component: require('./pages/Console.vue'), },
     {
       path: '/metrics',
       component: require('./pages/metrics/Index.vue'),
-      children: [{
-        path: '/',
-        redirect: 'memory',
-      }, {
-        path: 'memory',
-        component: require('./pages/metrics/Memory.vue'),
-      },
-      {
-        path: 'cpu',
-        component: require('./pages/metrics/Cpu.vue'),
-      },
-      {
-        path: 'clients',
-        component: require('./pages/metrics/Clients.vue'),
-      },
-      {
-        path: 'throughput',
-        component: require('./pages/metrics/Throughput.vue'),
-      },],
+      children: [
+        { path: '/', redirect: 'memory', },
+        { path: 'memory', component: require('./pages/metrics/Memory.vue'), },
+        { path: 'cpu', component: require('./pages/metrics/Cpu.vue'), },
+        { path: 'clients', component: require('./pages/metrics/Clients.vue'), },
+        { path: 'throughput', component: require('./pages/metrics/Throughput.vue'), },],
     },
   ],
 });

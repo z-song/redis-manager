@@ -4,7 +4,7 @@
         <div slot="header" class="clearfix">
             <span>Clients</span>
         </div>
-        <div class="small">
+        <div class="chart">
             <line-chart :chart-data="collection" :options="options" :height="200"></line-chart>
         </div>
 
@@ -156,7 +156,7 @@
 </script>
 
 <style>
-    .small {
+    .chart {
         width: 100%;
         margin:  10px auto;
     }

@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-// const webpack = require('webpack');
+const webpack = require('webpack');
 
 /*
  |--------------------------------------------------------------------------
@@ -23,6 +23,9 @@ mix.setPublicPath('public')
 
 
 mix.webpackConfig({
+    plugins: [
+        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
+    ],
     devtool: "source-map",
     resolve: {
         alias: {

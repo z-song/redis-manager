@@ -60,7 +60,7 @@
         </el-form>
 
         <el-dialog
-          :title="'Update '+ edit.field"
+          :title="'Update index '+ edit.index"
           :visible.sync="dialogVisible"
           width="30%">
           <span><el-input v-model="edit.value"></el-input></span>

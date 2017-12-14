@@ -5,7 +5,7 @@
             <span>memory</span>
         </div>
         
-        <div class="small">
+        <div class="chart">
             <line-chart :chart-data="collection" :options="options" :height="200"></line-chart>
         </div>
     </el-card>
@@ -163,7 +163,7 @@ export default {
 </script>
 
 <style>
-    .small {
+    .chart {
         width: 100%;
         margin:  10px auto;
     }

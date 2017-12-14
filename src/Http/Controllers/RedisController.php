@@ -13,8 +13,6 @@ class RedisController extends BaseController
 {
     /**
      * Create a new controller instance.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -28,7 +26,7 @@ class RedisController extends BaseController
      */
     public function index()
     {
-        return view('laravel-redis-manager::app');
+        return view('redis-manager::app');
     }
 
     /**

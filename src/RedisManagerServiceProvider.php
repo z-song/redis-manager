@@ -41,7 +41,7 @@ class RedisManagerServiceProvider extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-redis-manager');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'redis-manager');
     }
 
     /**
@@ -53,6 +53,10 @@ class RedisManagerServiceProvider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/redis-manager'),
+        ], 'redis-manager-assets');
+
+        $this->publishes([
+            __DIR__.'/../fonts' => public_path('vendor/redis-manager/fonts'),
         ], 'redis-manager-assets');
 
         if ($this->app->runningInConsole()) {
