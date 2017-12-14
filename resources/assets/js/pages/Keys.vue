@@ -6,7 +6,7 @@
 
                 <div class="button-group">
                   
-                    <el-button class="action-btns" @click="scan" type="primary" size="small"><i class="fa fa-search"></i>Search</el-button>
+                    <el-button class="action-btns" @click="scan" type="primary" size="small"><i class="fa fa-search"></i>&nbsp;Search</el-button>
 
                     <div >
                         <el-button type="danger" size="small" @click="multiDelete"><i class="fa fa-trash"></i>Delete</el-button>
@@ -81,6 +81,7 @@
 
 <script>
 import Layout from "../components/Layout.vue";
+import map from 'lodash/map'
 
 export default {
   components: {
@@ -137,7 +138,7 @@ export default {
         return;
       }
 
-      var message;
+      let message;
       if (keys.length == 1) {
         message = "Delete key [" + keys[0] + "] ?";
       } else {
@@ -168,7 +169,7 @@ export default {
     },
 
     multiDelete() {
-      var keys = _.map(this.multipleSelection, row => {
+      let keys = map(this.multipleSelection, row => {
         return row.key;
       });
 

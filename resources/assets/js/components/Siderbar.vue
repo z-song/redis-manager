@@ -6,11 +6,11 @@
 
         <el-menu-item index="/">
             <i class="fa fa-search"></i>
-            <span slot="title"><strong>Search keys</strong></span>
+            <span slot="title"><strong>Search</strong></span>
         </el-menu-item>
 
         <el-menu-item index="/info">
-            <i class="fa fa-info"></i>&nbsp;&nbsp;
+            <i class="fa fa-file-text-o"></i>
             <span slot="title"><strong>Information</strong></span>
         </el-menu-item>
 
@@ -24,7 +24,7 @@
             <el-menu-item index="/metrics/memory"><i class="fa fa-save"></i>Memory</el-menu-item>
             <el-menu-item index="/metrics/cpu"><i class="fa fa-database"></i>CPU</el-menu-item>
             <el-menu-item index="/metrics/clients"><i class="fa fa-sitemap"></i>Clients</el-menu-item>
-            <el-menu-item index="/metrics/throughput"><i class="fa fa-sitemap"></i>Throughput</el-menu-item>
+            <el-menu-item index="/metrics/throughput"><i class="fa fa-sliders"></i>Throughput</el-menu-item>
         </el-submenu>
 
     </el-menu>

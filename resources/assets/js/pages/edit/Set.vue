@@ -59,6 +59,9 @@
 }
 </style>
 <script>
+
+    import isEmpty from 'lodash/isEmpty'
+
 export default {
 
   data() {
@@ -130,7 +133,7 @@ export default {
 
     load(key) {
       this.$redis.smembers(key).then(response => {
-        if (_.isEmpty(response.data)) {
+        if (isEmpty(response.data)) {
           this.$router.push({ path: "/" });
           return;
         }

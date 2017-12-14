@@ -80,6 +80,7 @@
 
 <script>
 import Layout from "../components/Layout.vue";
+import isEmpty from 'lodash/isEmpty'
 
 export default {
   components: { Layout },
@@ -101,7 +102,7 @@ export default {
   },
   methods: {
     eval() {
-      if (_.isEmpty(this.command)) {
+      if (isEmpty(this.command)) {
         return;
       }
 

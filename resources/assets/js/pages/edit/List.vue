@@ -86,6 +86,8 @@
 }
 </style>
 <script>
+    import isEmpty from 'lodash/isEmpty'
+
 export default {
   data() {
     return {
@@ -146,7 +148,7 @@ export default {
       this.loading = true;
 
       this.$redis.lall(key).then(response => {
-        if (_.isEmpty(response.data)) {
+        if (isEmpty(response.data)) {
           this.$router.push({ path: "/" });
           return;
         }

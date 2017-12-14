@@ -57,6 +57,9 @@
 }
 </style>
 <script>
+
+    import includes from 'lodash/includes'
+
 export default {
 
   data() {
@@ -108,7 +111,7 @@ export default {
 
     handleInputConfirm() {
       let inputValue = this.inputValue;
-      if (inputValue && !_.includes(this.form.members, inputValue)) {
+      if (inputValue && !includes(this.form.members, inputValue)) {
         this.form.members.push(inputValue);
       }
       this.inputVisible = false;

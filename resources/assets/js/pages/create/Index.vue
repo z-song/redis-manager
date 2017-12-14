@@ -32,6 +32,8 @@ a.nav-link {
 
 <script type="text/ecmascript-6">
 import Layout from "../../components/Layout.vue";
+import last from 'lodash/last'
+import pickBy from 'lodash/pickBy'
 
 export default {
   components: { Layout },
@@ -44,13 +46,13 @@ export default {
 
   methods: {
     current() {
-      return _.last(this.$route.path.split("/"));
+      return last(this.$route.path.split("/"));
     },
 
     others() {
       const current = this.current();
 
-      return _.pickBy(this.types, function(type) {
+      return pickBy(this.types, function(type) {
         return type !== current;
       });
     }
