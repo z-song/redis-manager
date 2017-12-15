@@ -15,8 +15,6 @@
     "chart.js": "^2.7.1",
     "element-ui": "^2.0.0",
     "font-awesome": "^4.7.0",
-    "less": "^3.0.0-alpha.3",
-    "less-loader": "^4.0.5",
     "lodash": "^4.16.2",
     "vue": "^2.2.0",
     "vue-chartjs": "^3.0.2",
@@ -24,8 +22,7 @@
   },
   "devDependencies": {
     "babel-plugin-component": "^0.10.1",
-    "browser-sync": "^2.18.13",
-    "browser-sync-webpack-plugin": "^1.2.0",
+    "babel-preset-env": "^1.6.1",
     "cross-env": "^5.0.1",
     "es6-promise": "^4.0.5",
     "laravel-mix": "^1.4.2"

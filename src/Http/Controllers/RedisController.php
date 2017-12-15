@@ -53,7 +53,7 @@ class RedisController extends BaseController
 
         return $manager->scan(
             $request->get('pattern', '*'),
-            $request->get('count', 50)
+            $request->get('count', config('redis-manager.results_per_page', 50))
         );
     }
 
@@ -138,7 +138,7 @@ class RedisController extends BaseController
     public function eval(Request $request)
     {
         $command = $request->get('command');
-        $db      = $request->get('db');
+        $db = $request->get('db');
 
         try {
             $result = $this->manager()->execute($command, $db);
@@ -160,7 +160,7 @@ class RedisController extends BaseController
 
         return [
             'success' => true,
-            'data'  => $result,
+            'data'    => $result,
             'command' => $command
         ];
     }

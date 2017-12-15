@@ -1,25 +1,31 @@
 
 import axios from 'axios';
 
-export default {
+export default class {
 
-  $http: axios.create(),
+  constructor() {
+      this.$http = axios.create({baseURL: window.basePath + '/api/'});
 
-  conn: 'default',
+    this.conn = 'default';
+  }
+
+  static create() {
+    return new this;
+  }
 
   getConnection() {
     return localStorage.getItem('conn') || 'default'
-  },
+  }
 
   connections() {
-    return this.$http.get('/redis-manager/api/connections');
-  },
+    return this.$http.get('/connections');
+  }
 
   info(section = null) {
-    return this.$http.get('/redis-manager/api/info', {
+    return this.$http.get('/info', {
       params: {section, conn: this.getConnection() },
     });
-  },
+  }
 
   expire(key, seconds) {
     const params = {
@@ -28,20 +34,20 @@ export default {
       conn: this.getConnection()
     }
 
-    return this.$http.put('/redis-manager/api/expire', params);
-  },
+    return this.$http.put('/expire', params);
+  }
 
   get(key) {
-    return this.$http.get('/redis-manager/api/key', {
+    return this.$http.get('/key', {
       params: { key, conn: this.getConnection() },
     });
-  },
+  }
 
   del(keys) {
-    return this.$http.delete('/redis-manager/api/keys', {
+    return this.$http.delete('/keys', {
       params: { keys, conn: this.getConnection() },
     });
-  },
+  }
 
   set(key, value) {
     const params = {
@@ -51,8 +57,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/keys', params);
-  },
+    return this.$http.post('/keys', params);
+  }
 
   setex(key, seconds, value) {
     const params = {
@@ -63,12 +69,12 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/keys', params);
-  },
+    return this.$http.post('/keys', params);
+  }
 
   hgetall(key) {
     return this.get(key);
-  },
+  }
 
   hmset(key, dic, seconds = null) {
     const params = {
@@ -79,8 +85,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/keys', params);
-  },
+    return this.$http.post('/keys', params);
+  }
 
   hset(key, name, value) {
     const dic = {
@@ -89,21 +95,21 @@ export default {
     };
 
     return this.hmset(key, [dic], null);
-  },
+  }
 
   hdel(key, field) {
 
     const type = 'hash'
     const conn = this.getConnection()
 
-    return this.$http.delete('/redis-manager/api/keys/item', {
+    return this.$http.delete('/keys/item', {
       params: { key, field, type, conn },
     });
-  },
+  }
 
   smembers(key) {
     return this.get(key);
-  },
+  }
 
   sadd(key, members, seconds) {
     const params = {
@@ -114,8 +120,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/keys', params);
-  },
+    return this.$http.post('/keys', params);
+  }
 
   srem(key, member) {
     const params = {
@@ -126,12 +132,12 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
   lall(key) {
     return this.get(key)
-  },
+  }
 
   lpush(key, members, seconds) {
     const params = {
@@ -143,8 +149,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
   rpush(key, members, seconds) {
     const params = {
@@ -156,18 +162,18 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
   ldel(key, index) {
 
     const type = 'list'
     const conn = this.getConnection()
 
-    return this.$http.delete('/redis-manager/api/keys/item', {
+    return this.$http.delete('/keys/item', {
       params: { key, index, type, conn },
     });
-  },
+  }
 
   lset(key, index, value) {
     const params = {
@@ -179,12 +185,12 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
   zall(key) {
     return this.get(key);
-  },
+  }
 
   zadd(key, members, seconds = null) {
     const params = {
@@ -195,8 +201,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/keys', params);
-  },
+    return this.$http.post('/keys', params);
+  }
 
   zrem(key, member) {
     const params = {
@@ -207,8 +213,8 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
   zset(key, member, score) {
     const params = {
@@ -220,18 +226,17 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.put('/redis-manager/api/keys', params);
-  },
+    return this.$http.put('/keys', params);
+  }
 
-  scan(pattern, count = 50) {
+  scan(pattern) {
     const params = {
       pattern,
-      count,
       conn: this.getConnection(),
     };
 
-    return this.$http.get('/redis-manager/api/scan', { params });
-  },
+    return this.$http.get('/scan', { params });
+  }
 
   eval(command, db = null) {
     const params = {
@@ -240,7 +245,7 @@ export default {
       conn: this.getConnection(),
     };
 
-    return this.$http.post('/redis-manager/api/eval', params);
-  },
+    return this.$http.post('/eval', params);
+  }
 
-};
+}

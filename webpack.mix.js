@@ -15,12 +15,12 @@ const webpack = require('webpack');
 mix.setPublicPath('public')
     .js('resources/assets/js/app.js', 'public/js')
     .sass('resources/assets/sass/app.scss', 'public/css')
-    // .copy('resources/assets/img', 'public/img')
+    .copy('resources/assets/img', 'public/img')
     .sourceMaps()
     .version()
+
     .copy('public/fonts', '../../../public/fonts')
     .copy('public', '../../../public/vendor/redis-manager');
-
 
 mix.webpackConfig({
     plugins: [

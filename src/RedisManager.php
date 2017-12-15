@@ -300,7 +300,7 @@ LUA;
         $command = explode(' ', trim($command));
 
         if ($this->commandDisabled($command[0])) {
-            throw new \Exception( "Command [{$command[0]}] is disabled!");
+            throw new \Exception("Command [{$command[0]}] is disabled!");
         }
 
         $client = $this->getConnection();

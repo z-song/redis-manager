@@ -12,6 +12,9 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css','vendor/redis-manager') }}" rel="stylesheet">
+    <script>
+        window.basePath = '/{{ trim(config('redis-manager.base_path', 'redis-manager'), '/') }}'
+    </script>
 </head>
 <body>
 <div id="app"></div>

@@ -26,7 +26,7 @@ class RedisManagerServiceProvider extends ServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'prefix' => config('redis-manager.uri', 'redis-manager'),
+            'prefix' => config('redis-manager.base_path', 'redis-manager'),
             'namespace' => 'Encore\RedisManager\Http\Controllers',
             'middleware' => config('redis-manager.middleware', 'web'),
         ], function () {

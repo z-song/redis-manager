@@ -5,7 +5,7 @@
 
                 <el-row>
                     <el-col :span="6">
-                        <img src="/vendor/horizon/img/horizon.svg">
+                        <img src="/vendor/redis-manager/img/logo.svg" width="150px;" height="50px;">
                     </el-col>
 
                     <el-col :span="4" :offset="14">

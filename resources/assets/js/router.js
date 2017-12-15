@@ -5,7 +5,7 @@ Vue.use(Router);
 
 export default new Router({
   mode: 'history',
-  base: '/redis-manager/',
+  base: window.basePath,
   routes: [
     { path: '/', component: require('./pages/Keys.vue'), },
     {
