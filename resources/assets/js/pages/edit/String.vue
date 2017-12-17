@@ -5,7 +5,7 @@
                 <el-input v-model="form.key" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="Expire">
-                <el-input-number v-model="form.expire"></el-input-number>
+                <el-input-number v-model="form.expire" :min="-1"></el-input-number>
             </el-form-item>
 
           <el-form-item>

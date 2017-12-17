@@ -84,11 +84,9 @@ class RedisManager
      */
     public static function check($request)
     {
-        if (static::$authUsing) {
-            (static::$authUsing)($request);
-        }
-
-        return true;
+        return (static::$authUsing ?: function () {
+            return app()->environment('local');
+        })($request);
     }
 
     /**

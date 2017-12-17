@@ -7,7 +7,7 @@
             </el-form-item>
 
             <el-form-item label="Expire" prop="expire">
-                <el-input-number v-model="form.expire"></el-input-number>
+                <el-input-number v-model="form.expire" :min="-1"></el-input-number>
             </el-form-item>
 
             <el-form-item
@@ -57,13 +57,13 @@ export default {
         members: [{ value: "" }]
       },
       rules: {
-        key: [{ required: true, message: "请输入key", trigger: "change" }],
-        expire: [{ required: true, message: "请输入expire", trigger: "change" }],
+        key: [{ required: true, message: "Key is required", trigger: "change" }],
+        expire: [{ required: true, message: "Expire is required", trigger: "change" }],
         members: [
           {
             type: "array",
             required: true,
-            message: "请至少填写一个member",
+            message: "Please add at least one member",
             trigger: "change"
           }
         ]

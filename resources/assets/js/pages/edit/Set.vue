@@ -5,7 +5,7 @@
                 <el-input v-model="form.key" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="Expire" prop="expire">
-                <el-input-number v-model="form.expire"></el-input-number>
+                <el-input-number v-model="form.expire" :min="-1"></el-input-number>
             </el-form-item>
 
             <el-form-item>
@@ -76,7 +76,7 @@ export default {
   },
 
   created() {
-    document.title = "Redis Manager - Create set";
+    document.title = "Redis Manager - Edit set";
   },
 
   mounted() {
@@ -97,7 +97,7 @@ export default {
     srem(member) {
 
       this.$confirm(
-        "Remove member [" + member + "] from " + this.form.key + "?",
+        "Remove member [" + member + "] from set [" + this.form.key + "] ?",
         "Notice",
         {
           confirmButtonText: "Remove",

@@ -4,7 +4,7 @@
 
         <el-card class="box-card">
             <div slot="header" class="clearfix">
-              <span>Edit <el-tag type="success">{{ this.$route.query.key }}</el-tag> </span>
+              <span>Edit {{ current() }} <el-tag type="success">{{ this.$route.query.key }}</el-tag> </span>
               <el-button style="float: right;" type="danger" @click="del" size="mini"><i class="el-icon-delete"></i></el-button>
             </div>
 
@@ -57,7 +57,7 @@ export default {
 
     del() {
 
-      const keys = [this.$route.query.key]
+      const keys = [this.$route.query.key];
 
       const message = "Delete key [" + keys[0] + "] ?";
 

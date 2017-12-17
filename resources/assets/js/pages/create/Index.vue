@@ -6,14 +6,12 @@
             <div slot="header" class="clearfix">
 
               <span>Create </span>
-              <el-dropdown>
+              <el-dropdown @command="create">
                 <span class="el-dropdown-link">
                   {{ current() }}<i class="el-icon-arrow-down el-icon--right"></i>
                 </span>
                   <el-dropdown-menu slot="dropdown">
-                      <el-dropdown-item v-for="type in others()" :key="type">
-                          <router-link :to="type" active-class="active" class="nav-link">{{ type }}</router-link>
-                      </el-dropdown-item>
+                      <el-dropdown-item v-for="type in others()" :key="type" :command="type">{{ type.toUpperCase() }}</el-dropdown-item>
                   </el-dropdown-menu>
               </el-dropdown>
             </div>
@@ -46,7 +44,7 @@ export default {
 
   methods: {
     current() {
-      return last(this.$route.path.split("/"));
+      return last(this.$route.path.split("/")).toUpperCase();
     },
 
     others() {
@@ -55,7 +53,10 @@ export default {
       return pickBy(this.types, function(type) {
         return type !== current;
       });
-    }
+    },
+      create(type) {
+          this.$router.push({ path: "/create/" + type });
+      }
   }
 };
 </script>

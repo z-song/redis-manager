@@ -5,7 +5,7 @@
                 <el-input v-model="key" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="Expire" prop="expire">
-                <el-input-number v-model="expire"></el-input-number>
+                <el-input-number v-model="expire" :min="-1"></el-input-number>
             </el-form-item>
 
             <el-form-item>
@@ -127,7 +127,7 @@ export default {
     zrem(member) {
 
       this.$confirm(
-        "Remove member [" + member.member + "] from " + this.key + "?",
+        "Remove member [" + member.member + "] from sorted set [" + this.key + "] ?",
         "Notice",
         {
           confirmButtonText: "Remove",

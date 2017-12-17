@@ -9,7 +9,9 @@
                     <el-button class="action-btns" @click="scan" type="primary" size="small"><i class="fa fa-search"></i>&nbsp;Search</el-button>
 
                     <div >
-                        <el-button type="danger" size="small" @click="multiDelete"><i class="fa fa-trash"></i>Delete</el-button>
+                        <el-button :disabled="multipleSelection.length==0" type="danger" size="small" @click="multiDelete"><i class="fa fa-trash"></i>&nbsp;Delete
+                            <span v-if="multipleSelection.length>0">{{ multipleSelection.length }} keys</span>
+                        </el-button>
 
                         <el-dropdown split-button type="success" size="small" @command="create">
                             New

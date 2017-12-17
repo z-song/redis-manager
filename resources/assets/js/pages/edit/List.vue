@@ -7,7 +7,7 @@
             </el-form-item>
 
             <el-form-item label="Expire" prop="expire">
-                <el-input-number v-model="form.expire"></el-input-number>
+                <el-input-number v-model="form.expire" :min="-1"></el-input-number>
             </el-form-item>
 
             <el-form-item>
@@ -210,7 +210,7 @@ export default {
 
     handleDelete(index) {
       this.$confirm(
-        "Remove index [" + index + "] from " + this.form.key + "?",
+        "Remove index [" + index + "] from list [" + this.form.key + "] ?",
         "Notice",
         {
           confirmButtonText: "Remove",

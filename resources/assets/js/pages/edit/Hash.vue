@@ -5,7 +5,7 @@
                 <el-input v-model="form.key" :disabled="true"></el-input>
             </el-form-item>
             <el-form-item label="Expire">
-                <el-input-number v-model="form.expire"></el-input-number>
+                <el-input-number v-model="form.expire" :min="-1"></el-input-number>
             </el-form-item>
 
             <el-form-item>
@@ -119,7 +119,7 @@ export default {
   },
 
   created() {
-    document.title = "Redis Manager - Create string";
+    document.title = "Redis Manager - Edit hash";
   },
 
   mounted() {
@@ -206,7 +206,7 @@ export default {
 
     hdel(field) {
       this.$confirm(
-        "Remove key [" + field.field + "] from " + this.form.key + "?",
+        "Remove field [" + field.field + "] from hash [" + this.form.key + "] ?",
         "Notice",
         {
           confirmButtonText: "Remove",
