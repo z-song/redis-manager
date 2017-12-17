@@ -20,7 +20,6 @@ class Hashes extends DataType
         $key = array_get($params, 'key');
 
         if (array_has($params, 'field')) {
-
             $field = array_get($params, 'field');
             $value = array_get($params, 'value');
 
@@ -40,9 +39,9 @@ class Hashes extends DataType
      */
     public function store(array $params)
     {
-        $key     = array_get($params, 'key');
+        $key = array_get($params, 'key');
         $seconds = array_get($params, 'seconds');
-        $dic     = array_get($params, 'dic');
+        $dic = array_get($params, 'dic');
 
         $fields = [];
 
@@ -61,11 +60,12 @@ class Hashes extends DataType
      * Remove a field from a hash.
      *
      * @param array $params
+     *
      * @return int
      */
     public function remove(array $params)
     {
-        $key   = array_get($params, 'key');
+        $key = array_get($params, 'key');
         $field = array_get($params, 'field');
 
         return $this->getConnection()->hdel($key, [$field]);

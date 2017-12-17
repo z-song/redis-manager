@@ -17,9 +17,9 @@ class Sets extends DataType
      */
     public function update(array $params)
     {
-        $key      = array_get($params, 'key');
-        $member   = array_get($params, 'member');
-        $action   = array_get($params, 'action');
+        $key = array_get($params, 'key');
+        $member = array_get($params, 'member');
+        $action = array_get($params, 'action');
 
         if ($action === 'srem') {
             $this->getConnection()->srem($key, $member);
@@ -35,9 +35,9 @@ class Sets extends DataType
      */
     public function store(array $params)
     {
-        $key       = array_get($params, 'key');
-        $members   = array_get($params, 'members');
-        $seconds   = array_get($params, 'seconds');
+        $key = array_get($params, 'key');
+        $members = array_get($params, 'members');
+        $seconds = array_get($params, 'seconds');
 
         $this->getConnection()->sadd($key, $members);
 
@@ -52,11 +52,12 @@ class Sets extends DataType
      * Remove a member from a set.
      *
      * @param array $params
+     *
      * @return int
      */
     public function remove(array $params)
     {
-        $key    = array_get($params, 'key');
+        $key = array_get($params, 'key');
         $member = array_get($params, 'member');
 
         return $this->getConnection()->srem($key, $member);

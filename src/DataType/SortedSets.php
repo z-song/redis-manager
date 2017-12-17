@@ -17,9 +17,9 @@ class SortedSets extends DataType
      */
     public function update(array $params)
     {
-        $key      = array_get($params, 'key');
-        $member   = array_get($params, 'member');
-        $action   = array_get($params, 'action');
+        $key = array_get($params, 'key');
+        $member = array_get($params, 'member');
+        $action = array_get($params, 'action');
 
         if ($action === 'zrem') {
             $this->getConnection()->zrem($key, $member);
@@ -36,9 +36,9 @@ class SortedSets extends DataType
      */
     public function store(array $params)
     {
-        $key      = array_get($params, 'key');
-        $members  = array_get($params, 'members');
-        $expire   = array_get($params, 'expire');
+        $key = array_get($params, 'key');
+        $members = array_get($params, 'members');
+        $expire = array_get($params, 'expire');
 
         $fields = [];
 
@@ -57,11 +57,12 @@ class SortedSets extends DataType
      * Remove a member from a sorted set.
      *
      * @param array $params
+     *
      * @return int
      */
     public function remove(array $params)
     {
-        $key   = array_get($params, 'key');
+        $key = array_get($params, 'key');
         $member = array_get($params, 'member');
 
         return $this->getConnection()->zrem($key, $member);

@@ -33,18 +33,21 @@ abstract class DataType
 
     /**
      * @param string $key
+     *
      * @return mixed
      */
     abstract public function fetch(string $key);
 
     /**
      * @param array $params
+     *
      * @return mixed
      */
     abstract public function update(array $params);
 
     /**
      * @param array $params
+     *
      * @return mixed
      */
     abstract public function store(array $params);
@@ -53,6 +56,7 @@ abstract class DataType
      * Returns the remaining time to live of a key that has a timeout.
      *
      * @param string $key
+     *
      * @return int
      */
     public function ttl($key)
@@ -64,7 +68,7 @@ abstract class DataType
      * Set a timeout on key.
      *
      * @param string $key
-     * @param integer $expire
+     * @param int    $expire
      *
      * @return void
      */

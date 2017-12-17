@@ -39,10 +39,10 @@ class Lists extends DataType
      */
     public function store(array $params)
     {
-        $key      = array_get($params, 'key');
-        $members  = array_get($params, 'members');
-        $expire   = array_get($params, 'expire');
-        $action   = array_get($params, 'action', 'rpush');
+        $key = array_get($params, 'key');
+        $members = array_get($params, 'members');
+        $expire = array_get($params, 'expire');
+        $action = array_get($params, 'action', 'rpush');
 
         $members = array_column($members, 'value');
 
@@ -57,11 +57,12 @@ class Lists extends DataType
      * Remove a member from list by index.
      *
      * @param array $params
+     *
      * @return mixed
      */
     public function remove(array $params)
     {
-        $key   = array_get($params, 'key');
+        $key = array_get($params, 'key');
         $index = array_get($params, 'index');
 
         $lua = <<<'LUA'
