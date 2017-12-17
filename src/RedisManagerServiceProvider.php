@@ -56,7 +56,7 @@ class RedisManagerServiceProvider extends ServiceProvider
         ], 'redis-manager-assets');
 
         $this->publishes([
-            __DIR__.'/../fonts' => public_path('vendor/redis-manager/fonts'),
+            __DIR__.'/../public/fonts' => public_path('fonts'),
         ], 'redis-manager-assets');
 
         if ($this->app->runningInConsole()) {
