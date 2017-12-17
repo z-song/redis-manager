@@ -17,8 +17,7 @@ use Predis\Collection\Iterator\Keyspace;
 use Predis\Pipeline\Pipeline;
 
 /**
- * Class RedisManager
- * @package Encore\RedisManager
+ * Class RedisManager.
  */
 class RedisManager
 {
@@ -79,7 +78,8 @@ class RedisManager
     /**
      * Determine if the given request can access redis-manager.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return bool
      */
     public static function check($request)
@@ -94,14 +94,15 @@ class RedisManager
     /**
      * Set the callback that should be used to authenticate redis-manager users.
      *
-     * @param  \Closure  $callback
+     * @param \Closure $callback
+     *
      * @return static
      */
     public static function auth(\Closure $callback)
     {
         static::$authUsing = $callback;
 
-        return new static;
+        return new static();
     }
 
     /**
@@ -176,6 +177,7 @@ class RedisManager
      * Get information of redis instance.
      *
      * @param mixed $section
+     *
      * @return array
      */
     public function getInformation($section = null)
@@ -193,7 +195,7 @@ class RedisManager
      * Scan keys in redis by giving pattern.
      *
      * @param string $pattern
-     * @param int $count
+     * @param int    $count
      *
      * @return array|\Predis\Pipeline\Pipeline
      */
@@ -225,9 +227,9 @@ LUA;
 
         return collect($keys)->map(function ($key) {
             return [
-                'key' => $key[0],
+                'key'  => $key[0],
                 'type' => (string) $key[1],
-                'ttl' => $key[2]
+                'ttl'  => $key[2],
             ];
         });
     }
@@ -250,7 +252,7 @@ LUA;
         /** @var DataType $class */
         $class = $this->{$type}();
 
-        $value  = $class->fetch($key);
+        $value = $class->fetch($key);
         $expire = $class->ttl($key);
 
         return compact('key', 'value', 'expire', 'type');
@@ -265,7 +267,7 @@ LUA;
      */
     public function update(Request $request)
     {
-        $key  = $request->get('key');
+        $key = $request->get('key');
         $type = $request->get('type');
 
         /** @var DataType $class */
@@ -289,11 +291,13 @@ LUA;
     }
 
     /**
-     * 运行redis命令
+     * 运行redis命令.
      *
      * @param string $command
-     * @return mixed
+     *
      * @throws \Exception
+     *
+     * @return mixed
      */
     public function execute($command, $db)
     {
@@ -316,6 +320,7 @@ LUA;
      * Determine if giving command is disabled.
      *
      * @param string $command
+     *
      * @return bool
      */
     protected function commandDisabled(string $command)
@@ -330,6 +335,7 @@ LUA;
     /**
      * @param $key
      * @param int $seconds
+     *
      * @return int
      */
     public function expire($key, $seconds = -1)

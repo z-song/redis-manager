@@ -8,6 +8,7 @@ class Information
      * Format memory information.
      *
      * @param array $info
+     *
      * @return array
      */
     public static function memory($info)
@@ -25,12 +26,12 @@ class Information
      * Format commandstats information.
      *
      * @param array $info
+     *
      * @return static
      */
     public static function commandstats($info)
     {
         $commands = collect($info['Commandstats'])->mapWithKeys(function ($value, $key) {
-
             preg_match('/calls=(\d+),usec=(\d+),usec_per_call=(.*)/', $value, $match);
 
             list($_, $calls, $usec, $usec_per_call) = $match;
@@ -45,6 +46,7 @@ class Information
      * Format cpu information.
      *
      * @param array $info
+     *
      * @return mixed
      */
     public static function cpu($info)
@@ -56,6 +58,7 @@ class Information
      * Format clients information.
      *
      * @param array $info
+     *
      * @return mixed
      */
     public static function clients($info)
@@ -66,8 +69,9 @@ class Information
     /**
      * Format bytes to MB size.
      *
-     * @param integer $bytes
+     * @param int $bytes
      * @param int $precision
+     *
      * @return float
      */
     public static function formatBytes($bytes, $precision = 2)
@@ -80,6 +84,7 @@ class Information
     /**
      * @param $method
      * @param $arguments
+     *
      * @return mixed
      */
     public static function __callStatic($method, $arguments)

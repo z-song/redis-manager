@@ -48,6 +48,6 @@ return [
     */
 
     'disable_commands' => [
-        'flushdb'
-    ]
+        'flushdb',
+    ],
 ];

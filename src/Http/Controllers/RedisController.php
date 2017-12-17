@@ -20,7 +20,7 @@ class RedisController extends BaseController
     }
 
     /**
-     * Index page
+     * Index page.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -45,6 +45,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return array|\Predis\Pipeline\Pipeline
      */
     public function scan(Request $request)
@@ -59,6 +60,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     public function info(Request $request)
@@ -92,6 +94,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return array
      */
     public function key(Request $request)
@@ -101,6 +104,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public function remove(Request $request)
@@ -112,6 +116,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return mixed
      */
     public function update(Request $request)
@@ -121,6 +126,7 @@ class RedisController extends BaseController
 
     /**
      * @param Request $request
+     *
      * @return int
      */
     public function expire(Request $request)
@@ -129,7 +135,7 @@ class RedisController extends BaseController
     }
 
     /**
-     * Execute a redis command
+     * Execute a redis command.
      *
      * @param Request $request
      *
@@ -146,7 +152,7 @@ class RedisController extends BaseController
             return [
                 'success' => false,
                 'data'    => $exception->getMessage(),
-                'command' => $command
+                'command' => $command,
             ];
         }
 
@@ -154,14 +160,14 @@ class RedisController extends BaseController
             return [
                 'success' => false,
                 'data'    => $result,
-                'command' => $command
+                'command' => $command,
             ];
         }
 
         return [
             'success' => true,
             'data'    => $result,
-            'command' => $command
+            'command' => $command,
         ];
     }
 
