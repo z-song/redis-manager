@@ -1,20 +1,16 @@
-<p align="center">
-<img src="http//zsong.me/redis-manager/vendor/redis-manager/img/logo.svg" alt="redis-manager">
+<p align="center"><img src="http//zsong.me/redis-manager/vendor/redis-manager/img/logo.svg" alt="redis-manager"></p>
 
-<p align="center">    
+<p align="center">
     <a href="https://styleci.io/repos/114085132">
-        <img src="https://styleci.io/repos/114085132/shield?branch=master" alt="StyleCI">
+        <img src="https://styleci.io/repos/114085132/shield" alt="StyleCI">
     </a>
-    
     <a href="https://packagist.org/packages/encore/redis-manager">
         <img src="https://img.shields.io/packagist/l/encore/redis-manager.svg?maxAge=2592000&&style=flat-square" alt="Packagist">
     </a>
-    
     <a href="https://packagist.org/packages/encore/redis-manager">
         <img src="https://img.shields.io/packagist/dt/encore/redis-manager.svg?style=flat-square" alt="Total Downloads">
     </a>
 </div>
-
 
 `Redis-manager` gives your laravel application a redis web administration interface that allows you to easily manipulate the most commonly used data types for redis (strings, hashes, lists, sets, sorted sets).
 
