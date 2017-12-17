@@ -1,4 +1,4 @@
-<p align="center"><img src="http://zsong.me/redis-manager/vendor/redis-manager/img/logo.svg" alt="redis-manager"></p>
+<p align="center"><img src="http://zsong.me/vendor/redis-manager/img/logo.svg" alt="redis-manager"></p>
 
 <p align="center">
     <a href="https://styleci.io/repos/114085132">
