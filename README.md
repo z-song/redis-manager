@@ -1,4 +1,4 @@
-<p align="center"><img src="http://zsong.me/vendor/redis-manager/img/logo.svg" alt="redis-manager"></p>
+<p align="center"><img src="https://zsong.me/vendor/redis-manager/img/logo.svg" alt="redis-manager"></p>
 
 <p align="center">
     <a href="https://styleci.io/repos/114085132">
@@ -18,7 +18,7 @@ It also provides a web-style command-line tool that works like redis-cli that ca
 
 `Redis-manager` allows you to easily monitor several redis system status, including memory usage, cpu usage, and the throughput of each command.
 
-Here is the living [demo](http://zsong.me/redis-manager/)
+Here is the living [demo](https://zsong.me/redis-manager/)
 
 > redis-manager reads laravel's redis configuration located in the `config/database.php`
 
