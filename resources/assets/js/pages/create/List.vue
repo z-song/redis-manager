@@ -84,7 +84,7 @@ export default {
         }
 
         this.$redis
-          .rpush(this.form.key, this.form.members, this.form.expire)
+          .lstore(this.form.key, this.form.members, this.form.expire)
           .then(response => {
             this.$message({
               type: "success",
