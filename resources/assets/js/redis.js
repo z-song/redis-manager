@@ -165,6 +165,19 @@ export default class {
     return this.$http.put('/keys', params);
   }
 
+  lstore(key, members, seconds) {
+    const params = {
+      type: 'list',
+      action: 'rpush',
+      key,
+      members,
+      seconds,
+      conn: this.getConnection(),
+    };
+
+    return this.$http.post('/keys', params);
+  }
+  
   ldel(key, index) {
 
     const type = 'list'
